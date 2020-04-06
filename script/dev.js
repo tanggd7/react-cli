@@ -1,11 +1,12 @@
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const webpackDevServer = require('webpack-dev-server');
-const basicConfig = require('./basic');
 const { resolve } = require('path');
 const chalk = require('chalk');
+const basicConfig = require('./basic');
 const creatCompiler = require('./config/webpackCompiler');
-const proxy = require('./config/proxy');
+const proxy = require('./proxy');
+
 const clog = console.log;
 
 const webpackConfig = webpackMerge(basicConfig, {
@@ -25,13 +26,19 @@ const webpackConfig = webpackMerge(basicConfig, {
     chunkFilename: 'async-[name].js', // 异步加载模块名称
     publicPath: '/', // 生成的打包文件引入 index.html 时会添加前缀。
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      minSize: 0,
+    },
+  },
   devtool: 'cheap-module-eval-source-map',
   plugins: [
     // 插件可以将公共的依赖模块提取到已有的入口模块中，或者提取到一个新生成的模块。
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common', // 指定公共 bundle 的名称。
-      minChunks: Infinity,
-    }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: "common", // 指定公共 bundle 的名称。
+    //   minChunks: Infinity,
+    // }),
     // 当开启 HMR 的时候使用该插件会显示模块的相对路径
     new webpack.NamedModulesPlugin(),
     // 热加载
@@ -44,8 +51,22 @@ const webpackConfig = webpackMerge(basicConfig, {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        test: /\.less$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              strictMath: true,
+              noIeCompat: true,
+            },
+          },
+        ],
       },
     ],
   },

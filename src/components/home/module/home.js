@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Icon, Row, Col, Carousel, Modal } from 'antd';
-import '../css/home.scss';
+import '../css/home.less';
 import Login from 'Components/session/module/login';
 
 const { Header, Content } = Layout;

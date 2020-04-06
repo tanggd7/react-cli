@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Layout, Menu, Icon } from 'antd';
-import '../css/register.scss';
+import '../css/register.less';
 import DynamicModule from 'Tools/dynamic';
 
 const { Content } = Layout;

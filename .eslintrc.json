@@ -24,8 +24,24 @@
       {
         "singleQuote": true,
         "trailingComma": "es5",
-        "semi": true
+        "semi": true,
+        "endOfLine": "crlf"
+      }
+    ],
+    "import/no-extraneous-dependencies": [2, { "devDependencies": true }],
+    "react/jsx-filename-extension": [
+      2,
+      {
+        "extensions": [".jsx", ".js"]
       }
     ]
+  },
+  "globals": {
+    "window": true,
+    "document": true,
+    "navigator": true,
+    "localStorage": true,
+    "sessionStorage": true,
+    "jQuery": true
   }
 }

@@ -3,7 +3,7 @@ const webpackMerge = require('webpack-merge');
 // const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const chalk = require('chalk');
 const { resolve } = require('path');
 const basicConfig = require('./basic');
@@ -21,6 +21,12 @@ const webpackConfig = webpackMerge(basicConfig, {
     filename: 'js/[name].[chunkhash:8].js', // 编译文件名称
     chunkFilename: 'js/async-[id]-[name].[chunkhash:8].js', // 异步加载模块名称
     publicPath: '/', // 生成的打包文件引入 index.html 时会添加前缀。
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      minSize: 0,
+    },
   },
   devtool: 'source-map',
   plugins: [
@@ -46,22 +52,18 @@ const webpackConfig = webpackMerge(basicConfig, {
       'process.env': { NODE_ENV: JSON.stringify('production') },
     }),
     // 插件可以将公共的依赖模块提取到已有的入口模块中，或者提取到一个新生成的模块。
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['react', 'common'],
-      filename: 'js/[name].[chunkhash:8].js',
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      children: true,
-      async: 'common',
-    }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   names: ["react", "common"],
+    //   filename: "js/[name].[chunkhash:8].js",
+    // }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   children: true,
+    //   async: "common",
+    // }),
     // CSS隔离
-    new ExtractTextPlugin({
-      filename: (getPath) =>
-        getPath('css/[name].[sha1:contenthash:base32:8].css').replace(
-          'js/',
-          ''
-        ),
-      allChunks: true,
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].[hash].css',
+      chunkFilename: 'css/[id].[hash].css',
     }),
   ],
   // 加载依赖模块
@@ -69,28 +71,21 @@ const webpackConfig = webpackMerge(basicConfig, {
     rules: [
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: { minimize: true },
-            },
-          ],
-        }),
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: { minimize: true },
+        test: /\.less$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'less-loader',
+            options: {
+              strictMath: true,
+              noIeCompat: true,
             },
-            'sass-loader',
-          ],
-        }),
+          },
+        ],
       },
     ],
   },

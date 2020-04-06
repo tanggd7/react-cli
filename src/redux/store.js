@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import { routerMiddleware } from 'react-router-redux';
+// import { routerMiddleware } from 'react-router-redux';
 import createBrowserHistory from 'history/createBrowserHistory';
 import reducer from './reducer';
 
@@ -8,7 +8,7 @@ import reducer from './reducer';
 export const history = createBrowserHistory();
 
 // 中间件
-const middlewares = [thunk, routerMiddleware(history)];
+const middlewares = [thunk];
 
 // 增强器
 const storeEnhancers = compose(applyMiddleware(...middlewares));

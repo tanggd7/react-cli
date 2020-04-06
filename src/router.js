@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
-import DynamicModule from 'Tools/dynamic';
+import { ConnectedRouter } from 'connected-react-router';
+import DynamicModule from './tools/dynamic';
 import store, { history } from './redux/store';
 
 const Home = DynamicModule({

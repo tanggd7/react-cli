@@ -43,30 +43,6 @@ const basicConfig = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              [
-                'env',
-                {
-                  targets: {
-                    browsers: ['last 2 versions', 'ie > 8'],
-                  },
-                },
-              ],
-              'react',
-            ],
-            plugins: [
-              'syntax-dynamic-import',
-              [
-                'import',
-                [
-                  {
-                    libraryName: 'antd',
-                    libraryDirectory: 'es',
-                    style: 'css',
-                  },
-                ],
-              ],
-            ],
             compact: true,
             cacheDirectory: true,
           },

@@ -11,5 +11,17 @@
     "react",
     "stage-0"
   ],
-  "plugins": ["add-module-exports", "transform-decorators-legacy"]
+  "plugins": [
+    "syntax-dynamic-import",
+    "add-module-exports",
+    "transform-decorators-legacy",
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "libraryDirectory": "es",
+        "style": "css"
+      }
+    ]
+  ]
 }
