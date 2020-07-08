@@ -25,7 +25,8 @@
         "singleQuote": true,
         "trailingComma": "es5",
         "semi": true,
-        "endOfLine": "crlf"
+        "endOfLine": "crlf",
+        "printWidth": 120
       }
     ],
     "import/no-extraneous-dependencies": [2, { "devDependencies": true }],
@@ -41,7 +42,6 @@
     "document": true,
     "navigator": true,
     "localStorage": true,
-    "sessionStorage": true,
-    "jQuery": true
+    "sessionStorage": true
   }
 }

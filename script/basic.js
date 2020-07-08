@@ -6,15 +6,14 @@ const basicConfig = {
   resolve: {
     extensions: ['.js', '.jsx', '.css', '.json'],
     alias: {
-      Tools: resolve(__dirname, '../src/tools'),
-      Components: resolve(__dirname, '../src/components'),
+      '@': resolve(__dirname, '../src'),
     },
     modules: ['node_modules', resolve(__dirname, '../src')],
   },
   plugins: [
     // 它会用新生成的index.html
     new HtmlWebpackPlugin({
-      title: '首页',
+      title: '',
       template: 'public/index.html', // 首页模板
       inject: true,
       minify: {
