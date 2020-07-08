@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import DynamicModule from './tools/dynamic';
@@ -13,8 +13,9 @@ const Router = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/home" component={Home} />
         {/* <Route path="/forget" component={Forget} /> */}
+        <Redirect exact from="/" to="/home" />
       </Switch>
     </ConnectedRouter>
   </Provider>

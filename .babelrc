@@ -8,10 +8,12 @@
         }
       }
     ],
+    "@babel/preset-react",
     "react",
     "stage-0"
   ],
   "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
     "syntax-dynamic-import",
     "add-module-exports",
     "transform-decorators-legacy",
